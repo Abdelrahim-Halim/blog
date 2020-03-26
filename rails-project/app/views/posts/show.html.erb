@@ -1,19 +1,38 @@
-<p id="notice"><%= notice %></p>
+<p  id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
+<div class="card mb-3">
+  <div class="card-header">
+    <h4 class="display-4 font-weight-bold"><%= @post.title %></h4>
+    <div>
+      <%= @post.created_at %>
+    </div>
+  </div>
+  <div class="card-body">
 
-<p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
-</p>
+      <blockquote class="blockquote mb-0">
+          <p class="h2"><%= @post.body %></p>
+        
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item"><%= link_to 'Edit', edit_post_path(@post), class: "btn btn-warning text-dark px-3 mx-2" %></li>
+            <li class="list-group-item"><%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-light px-3 mx-2" %></li>
+         </ul>
+        
+      </blockquote>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+      <div class="card-header mt-3 mb-3">
+        <h3> Comments </h3>
+      </div>
+
+      <% @comments.each do |comment| %>
+        <div class="mb-3"> 
+          <span class="h4 mx-5"><%= comment.user.name %></span> 
+          <span class="h5"><%= comment.content %></span>
+          <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-light px-3 mx-2" %>
+        </div>
+      <% end %>
+      
+      <%= render 'comments/form', comment: @comment %>
+      
+  </div>  
+</div>

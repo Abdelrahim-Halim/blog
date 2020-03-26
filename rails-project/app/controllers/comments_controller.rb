@@ -28,11 +28,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { redirect_to @comment.post}
       end
     end
   end
@@ -40,13 +36,10 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
+    @comment = @post.comments.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { redirect_to @comment.post }
       end
     end
   end
@@ -56,8 +49,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to @comment.post}
     end
   end
 

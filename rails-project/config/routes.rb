@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   root :to => "posts#index"
-  resources :comments
-  resources :posts
   resources :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  post '/comments' => 'comments#create'
+  post '/comments/:id', to: 'comments#edit'
+
+
+  resources :posts
+  resources :comments
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # resources :posts do
+  #   resources :comments
+  # end
 end
